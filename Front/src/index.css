@@ -1,56 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;700&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg: #eef2f7;
-  --text-main: #14212e;
-  --muted: #5c6978;
-  --line: rgba(255, 255, 255, 0.5);
-  --panel: rgba(255, 255, 255, 0.56);
-  --panel-strong: rgba(255, 255, 255, 0.72);
-  --panel-soft: rgba(255, 255, 255, 0.86);
-  --brand: #2d6cdf;
-  --brand-2: #5ca3ff;
-  --shadow-soft: 0 10px 30px rgba(20, 33, 46, 0.08);
-  --shadow-card: 0 6px 20px rgba(20, 33, 46, 0.06);
+  --font-body: 'Manrope', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 
-  --sans: 'Chivo', 'Segoe UI', sans-serif;
-  --heading: 'Space Grotesk', 'Segoe UI', sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --bg: #f3f7fb;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: rgba(255, 255, 255, 0.9);
+  --text-main: #111827;
+  --text-muted: #576074;
+  --border-color: rgba(132, 146, 177, 0.26);
+  --brand: #5164ff;
+  --brand-strong: #2ab7a9;
+  --brand-accent: #4254e4;
+  --chip-bg: rgba(81, 100, 255, 0.1);
+  --shadow-soft: 0 24px 80px rgba(18, 28, 45, 0.12);
 
-  font: 16px/1.45 var(--sans);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  font-weight: 500;
   color: var(--text-main);
+  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
+:root[data-theme='dark'] {
+  --bg: #08111f;
+  --surface: rgba(10, 20, 35, 0.72);
+  --surface-strong: rgba(14, 27, 45, 0.9);
+  --text-main: #eef2ff;
+  --text-muted: #9aa7c2;
+  --border-color: rgba(154, 167, 194, 0.18);
+  --brand: #7a8cff;
+  --brand-strong: #2bd4bf;
+  --brand-accent: #a4b2ff;
+  --chip-bg: rgba(122, 140, 255, 0.16);
+  --shadow-soft: 0 30px 90px rgba(0, 0, 0, 0.34);
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 14% 12%, rgba(120, 170, 255, 0.28), transparent 35%),
-    radial-gradient(circle at 82% 8%, rgba(168, 218, 255, 0.26), transparent 32%),
-    linear-gradient(160deg, #e7edf5 0%, #f3f6fb 48%, #edf3fb 100%);
+    radial-gradient(circle at top left, rgba(110, 138, 255, 0.18), transparent 32%),
+    radial-gradient(circle at 85% 20%, rgba(43, 212, 191, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0)),
+    var(--bg);
+  color: var(--text-main);
 }
 
-#root {
-  min-height: 100vh;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--heading);
-  letter-spacing: -0.02em;
+  margin: 0;
+  font-family: var(--font-heading);
+  letter-spacing: -0.03em;
   color: var(--text-main);
 }
 
 p {
   margin: 0;
+}
+
+#root {
+  min-height: 100vh;
 }
