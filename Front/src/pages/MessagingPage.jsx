@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAppStore } from '../context/AppStore'
+import { useAppStore } from '../context/useAppStore'
 
 export default function MessagingPage() {
   const { state, actions } = useAppStore()

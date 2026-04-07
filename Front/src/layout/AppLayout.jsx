@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { useAppStore } from '../context/AppStore'
+import { useAppStore } from '../context/useAppStore'
 
 export default function AppLayout() {
   const { state, actions, selectors } = useAppStore()

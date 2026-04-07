@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { useAppStore } from '../context/AppStore'
+import { useAppStore } from '../context/useAppStore'
 
 export default function StudentsPage() {
   const { state, actions } = useAppStore()

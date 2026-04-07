@@ -1,4 +1,4 @@
-import { useAppStore } from '../context/AppStore'
+import { useAppStore } from '../context/useAppStore'
 import SchoolsPage from './SchoolsPage'
 import StudentsPage from './StudentsPage'
 import CompaniesPage from './CompaniesPage'

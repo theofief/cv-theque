@@ -1,4 +1,4 @@
-import { useAppStore } from '../context/AppStore'
+import { useAppStore } from '../context/useAppStore'
 
 export default function DashboardPage() {
   const { selectors } = useAppStore()

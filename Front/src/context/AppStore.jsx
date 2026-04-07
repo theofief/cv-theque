@@ -1,7 +1,6 @@
-import { createContext, useContext, useMemo, useReducer } from 'react'
+import { useMemo, useReducer } from 'react'
 import { initialData } from '../data/mockData'
-
-const AppStoreContext = createContext(null)
+import { AppStoreContext } from './useAppStore'
 
 const ROLE_PERMISSIONS = {
   guest: { canEdit: false, canPush: false },
@@ -18,10 +17,6 @@ function uid(prefix) {
 
 function canEdit(role) {
   return ROLE_PERMISSIONS[role]?.canEdit === true
-}
-
-function canPush(role) {
-  return ROLE_PERMISSIONS[role]?.canPush === true
 }
 
 function reducer(state, action) {
@@ -295,12 +290,4 @@ export function AppStoreProvider({ children }) {
   const value = useMemo(() => ({ state, actions, selectors }), [state, actions, selectors])
 
   return <AppStoreContext.Provider value={value}>{children}</AppStoreContext.Provider>
-}
-
-export function useAppStore() {
-  const context = useContext(AppStoreContext)
-  if (!context) {
-    throw new Error('useAppStore must be used within AppStoreProvider')
-  }
-  return context
 }
