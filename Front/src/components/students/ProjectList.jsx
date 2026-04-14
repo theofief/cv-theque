@@ -2,7 +2,7 @@ import ProjectCard from './ProjectCard'
 
 export default function ProjectList({ projects }) {
   return (
-    <div className="projectList">
+    <div className="d-grid gap-3">
       {projects.map((project) => (
         <ProjectCard key={project.name} project={project} />
       ))}

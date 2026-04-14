@@ -1,45 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
 
 :root {
-  --font-body: 'Manrope', sans-serif;
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-
-  --bg: #f3f7fb;
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-strong: rgba(255, 255, 255, 0.9);
-  --text-main: #111827;
-  --text-muted: #576074;
-  --border-color: rgba(132, 146, 177, 0.26);
-  --brand: #5164ff;
-  --brand-strong: #2ab7a9;
-  --brand-accent: #4254e4;
-  --chip-bg: rgba(81, 100, 255, 0.1);
-  --shadow-soft: 0 24px 80px rgba(18, 28, 45, 0.12);
-
-  font-family: var(--font-body);
-  line-height: 1.5;
-  font-weight: 500;
-  color: var(--text-main);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --bs-body-font-family: 'Plus Jakarta Sans', sans-serif;
+  --bs-font-sans-serif: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Sora', sans-serif;
+  --bs-primary: #123b67;
+  --bs-primary-rgb: 18, 59, 103;
+  --bs-warning: #f0b04c;
+  --bs-warning-rgb: 240, 176, 76;
+  --bs-secondary: #5c6775;
+  --bs-secondary-rgb: 92, 103, 117;
+  --bs-border-color: rgba(18, 59, 103, 0.12);
+  --bs-body-bg: #f7f3eb;
+  --bs-body-color: #102033;
+  --surface-bg: rgba(255, 255, 255, 0.88);
+  --surface-strong: #ffffff;
+  --surface-soft: #f6efe2;
+  --shadow-soft: 0 20px 50px rgba(16, 32, 51, 0.08);
 }
 
-:root[data-theme='dark'] {
-  --bg: #08111f;
-  --surface: rgba(10, 20, 35, 0.72);
-  --surface-strong: rgba(14, 27, 45, 0.9);
-  --text-main: #eef2ff;
-  --text-muted: #9aa7c2;
-  --border-color: rgba(154, 167, 194, 0.18);
-  --brand: #7a8cff;
-  --brand-strong: #2bd4bf;
-  --brand-accent: #a4b2ff;
-  --chip-bg: rgba(122, 140, 255, 0.16);
-  --shadow-soft: 0 30px 90px rgba(0, 0, 0, 0.34);
+:root[data-bs-theme='dark'] {
+  --bs-body-bg: #081523;
+  --bs-body-color: #edf2f7;
+  --bs-secondary: #b7c2cf;
+  --bs-secondary-rgb: 183, 194, 207;
+  --bs-border-color: rgba(233, 240, 248, 0.1);
+  --surface-bg: rgba(14, 27, 44, 0.9);
+  --surface-strong: #10253c;
+  --surface-soft: #122b43;
+  --shadow-soft: 0 24px 64px rgba(0, 0, 0, 0.28);
 }
 
 *,
@@ -53,36 +42,36 @@ html {
 }
 
 body {
-  margin: 0;
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(110, 138, 255, 0.18), transparent 32%),
-    radial-gradient(circle at 85% 20%, rgba(43, 212, 191, 0.14), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0)),
-    var(--bg);
-  color: var(--text-main);
+    radial-gradient(circle at top left, rgba(240, 176, 76, 0.14), transparent 24%),
+    radial-gradient(circle at top right, rgba(18, 59, 103, 0.14), transparent 30%),
+    var(--bs-body-bg);
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(18, 59, 103, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 59, 103, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 h1,
 h2,
 h3,
-h4 {
-  margin: 0;
+h4,
+h5,
+h6,
+.display-4,
+.display-6 {
   font-family: var(--font-heading);
-  letter-spacing: -0.03em;
-  color: var(--text-main);
-}
-
-p {
-  margin: 0;
+  letter-spacing: -0.04em;
 }
 
 #root {

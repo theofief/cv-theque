@@ -1,507 +1,112 @@
-.appShell {
+.app-shell {
   position: relative;
-  width: min(1400px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 32px 0 48px;
 }
 
-.appHeader,
-.panel,
-.statCard,
-.studentCard,
-.appFooter {
-  border: 1px solid var(--border-color);
-  background: var(--surface);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(22px);
-}
-
-.appHeader {
+.app-hero {
   position: relative;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 32px;
-  border-radius: 28px;
-  animation: fade-up 0.7s ease both;
+  background: linear-gradient(135deg, rgba(18, 59, 103, 0.96), rgba(29, 86, 141, 0.92));
 }
 
-.appHeader::after {
+.app-hero::before {
   content: '';
   position: absolute;
-  inset: auto -40px -60px auto;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(124, 92, 255, 0.18), transparent 68%);
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(240, 176, 76, 0.26), transparent 28%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.06), transparent);
   pointer-events: none;
 }
 
-.brandBlock h1 {
-  max-width: 14ch;
-  margin: 8px 0 12px;
-  font-size: clamp(2.8rem, 5vw, 4.8rem);
-  line-height: 0.95;
+.surface-card {
+  background: var(--surface-bg);
+  backdrop-filter: blur(12px);
 }
 
-.brandBlock p {
-  max-width: 64ch;
-  color: var(--text-muted);
-  font-size: 1.02rem;
+.glass-panel {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
 }
 
-.themeToggle,
-.primaryButton,
-.ghostButton,
-.dangerButton,
-.inlineLink,
-.skillPill,
-.studentCardMain {
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease;
+.brand-kicker {
+  letter-spacing: 0.18em;
 }
 
-.themeToggle,
-.primaryButton,
-.ghostButton,
-.dangerButton {
+.stats-number {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1;
+}
+
+.avatar-badge {
+  width: 3.5rem;
+  height: 3.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  border-radius: 999px;
-  padding: 12px 18px;
-  border: 1px solid var(--border-color);
-  font: inherit;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(18, 59, 103, 0.14), rgba(240, 176, 76, 0.24));
+  color: var(--bs-primary);
+  font-weight: 800;
+}
+
+.availability-pill {
+  background: rgba(18, 59, 103, 0.1);
+  color: var(--bs-primary);
+  border: 1px solid rgba(18, 59, 103, 0.08);
+  font-weight: 600;
+}
+
+.skill-chip {
+  background: var(--surface-soft);
+}
+
+.project-card,
+.meta-card {
+  background: var(--surface-strong);
+  border: 1px solid var(--bs-border-color);
+}
+
+.active-student-card {
+  outline: 2px solid rgba(240, 176, 76, 0.55);
+  box-shadow: 0 22px 48px rgba(18, 59, 103, 0.12);
+}
+
+.sticky-panel {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.cursor-pointer {
   cursor: pointer;
 }
 
-.themeToggle,
-.ghostButton {
-  color: var(--text-main);
-  background: var(--surface-strong);
+.card,
+.alert,
+.btn,
+.form-control,
+.form-select,
+.badge {
+  box-shadow: none;
 }
 
-.primaryButton {
-  color: white;
-  background: linear-gradient(135deg, var(--brand), var(--brand-strong));
-  border-color: transparent;
+.card,
+.alert,
+.surface-card {
+  box-shadow: var(--shadow-soft) !important;
 }
 
-.dangerButton {
-  color: #ffdede;
-  background: rgba(186, 52, 52, 0.15);
-}
-
-.themeToggle:hover,
-.primaryButton:hover,
-.ghostButton:hover,
-.dangerButton:hover,
-.skillPill:hover,
-.studentCardMain:hover,
-.inlineLink:hover {
-  transform: translateY(-1px);
-}
-
-.appMain,
-.pageStack {
-  display: grid;
-  gap: 20px;
-}
-
-.appMain {
-  margin-top: 20px;
-}
-
-.statsStrip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-  animation: fade-up 0.8s ease both;
-}
-
-.statCard,
-.panel,
-.studentCard,
-.appFooter {
-  border-radius: 24px;
-}
-
-.statCard {
-  padding: 22px;
-}
-
-.statCard span,
-.sectionTitleRow span,
-.mutedText,
-.studentCard p,
-.projectCard p,
-.appFooter p,
-.leadText,
-.profileBio,
-label,
-input,
-textarea,
-select {
-  color: var(--text-muted);
-}
-
-.statCard strong {
-  margin-top: 8px;
-  color: var(--text-main);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-}
-
-.toolbarPanel,
-.profilePanel,
-.formPanel {
-  padding: 24px;
-}
-
-.toolbarHeader,
-.sectionTitleRow,
-.studentCardFooter,
-.studentCardTop,
-.profileHero,
-.toolbarActions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.toolbarGrid,
-.formGrid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 18px;
-}
-
-.formGrid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.95rem;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid var(--border-color);
-  background: var(--surface-strong);
-  padding: 14px 16px;
-  font: inherit;
-  outline: none;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: var(--brand);
-  box-shadow: 0 0 0 4px rgba(91, 124, 250, 0.16);
-}
-
-.feedbackBanner {
-  padding: 14px 18px;
-  border-radius: 18px;
-  border: 1px solid var(--border-color);
-}
-
-.feedbackError {
-  background: rgba(186, 52, 52, 0.13);
-  color: #ffb3b3;
-}
-
-.feedbackSuccess {
-  background: rgba(34, 175, 119, 0.16);
-  color: #8df3c2;
-}
-
-.contentGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.9fr);
-  gap: 20px;
-}
-
-.studentGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.studentCard {
-  padding: 0;
-  overflow: hidden;
-  animation: fade-up 0.6s ease both;
-}
-
-.studentCardActive {
-  border-color: rgba(111, 139, 255, 0.55);
-  box-shadow: 0 12px 40px rgba(91, 124, 250, 0.18);
-}
-
-.studentCardMain {
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 22px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.studentCardFooter {
-  padding: 0 22px 22px;
-}
-
-.cardActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.avatarBadge,
-.availabilityBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-}
-
-.avatarBadge {
-  width: 52px;
-  height: 52px;
-  background: linear-gradient(135deg, rgba(97, 126, 255, 0.22), rgba(46, 214, 202, 0.22));
-  color: var(--text-main);
+.btn-warning {
+  color: #102033;
   font-weight: 700;
 }
 
-.availabilityBadge {
-  padding: 10px 14px;
-  background: rgba(59, 207, 156, 0.12);
-  color: var(--text-main);
+.btn-outline-light,
+.btn-outline-secondary,
+.btn-outline-danger {
+  font-weight: 600;
 }
 
-.cardBio,
-.profileBio {
-  margin-top: 16px;
-}
-
-.skillList,
-.techRow,
-.dynamicStack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.skillPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  background: var(--surface-strong);
-  padding: 10px 14px;
-  cursor: pointer;
-}
-
-.skillPill strong {
-  color: var(--brand-accent);
-}
-
-.studentCardMain:focus-visible,
-.inlineLink:focus-visible,
-.skillPill:focus-visible,
-.primaryButton:focus-visible,
-.ghostButton:focus-visible,
-.dangerButton:focus-visible,
-.themeToggle:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 3px;
-}
-
-.inlineLink {
-  color: var(--text-main);
-  text-decoration: none;
-}
-
-.projectList,
-.formSection,
-.studentForm,
-.stickyColumn {
-  display: grid;
-  gap: 16px;
-}
-
-.projectCard,
-.projectEditor {
-  border-radius: 20px;
-  border: 1px solid var(--border-color);
-  background: var(--surface-strong);
-  padding: 18px;
-}
-
-.projectCardHeader {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.techBadge {
-  border-radius: 999px;
-  padding: 8px 12px;
-  background: var(--chip-bg);
-  color: var(--text-main);
-  font-size: 0.88rem;
-}
-
-.profileSection {
-  margin-top: 24px;
-}
-
-.stickyColumn {
-  position: sticky;
-  top: 16px;
-  align-self: start;
-}
-
-.formSwitchRow,
-.inlineFormRow {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.inlineFormRow input,
-.inlineFormRow select {
-  flex: 1;
-}
-
-.checkboxLabel {
-  flex-direction: row;
-  align-items: center;
-}
-
-.formFullWidth {
-  grid-column: 1 / -1;
-}
-
-.emptyState {
-  padding: 32px;
-  text-align: center;
-}
-
-.errorText {
-  color: #ff9090;
-}
-
-.ambientGlow {
-  position: fixed;
-  width: 380px;
-  height: 380px;
-  border-radius: 999px;
-  filter: blur(90px);
-  opacity: 0.42;
-  pointer-events: none;
-}
-
-.ambientGlowLeft {
-  top: -80px;
-  left: -110px;
-  background: rgba(59, 130, 246, 0.24);
-}
-
-.ambientGlowRight {
-  top: 200px;
-  right: -120px;
-  background: rgba(29, 209, 161, 0.18);
-}
-
-.appFooter {
-  margin-top: 20px;
-  padding: 18px 22px;
-}
-
-.eyebrow {
-  display: inline-block;
-  color: var(--brand-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.76rem;
-  font-family: var(--font-mono);
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 1180px) {
-  .toolbarGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .contentGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .stickyColumn {
+@media (max-width: 1199.98px) {
+  .sticky-panel {
     position: static;
-  }
-}
-
-@media (max-width: 860px) {
-  .appShell {
-    width: min(100% - 20px, 100%);
-    padding-top: 18px;
-  }
-
-  .appHeader,
-  .toolbarHeader,
-  .sectionTitleRow,
-  .profileHero,
-  .studentCardFooter {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .statsStrip,
-  .studentGrid,
-  .toolbarGrid,
-  .formGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .brandBlock h1 {
-    max-width: 100%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
   }
 }
