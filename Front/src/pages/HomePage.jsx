@@ -94,7 +94,7 @@ export default function HomePage() {
         </div>
       ) : null}
 
-      <section className="row g-4 align-items-start">
+      <section className="row g-4 align-items-start cv-zone">
         <div className="col-xl-8">
           <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-3">
             <div>
@@ -126,8 +126,8 @@ export default function HomePage() {
           )}
         </div>
 
-        <div className="col-xl-4">
-          <div className="sticky-panel">
+        <div className="col-xl-4 align-self-start">
+          <aside className="sticky-panel cv-sticky-panel">
             {selectedStudent ? (
               <StudentProfile student={selectedStudent} onSkillClick={applySkillFilter} />
             ) : (
@@ -138,7 +138,7 @@ export default function HomePage() {
                 </div>
               </section>
             )}
-          </div>
+          </aside>
         </div>
       </section>
     </div>
