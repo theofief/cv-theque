@@ -1,4 +1,7 @@
 import { useMemo, useState } from 'react'
+import SearchSelect from '../forms/SearchSelect'
+
+const COMPANY_NOT_AVAILABLE = 'Entreprise non disponible'
 
 const emptyStudent = {
   firstName: '',
@@ -6,6 +9,8 @@ const emptyStudent = {
   age: 20,
   role: '',
   location: '',
+  schoolName: '',
+  companyName: '',
   bio: '',
   email: '',
   availability: '',
@@ -21,6 +26,8 @@ function getInitialState(student) {
 
   return {
     ...student,
+    schoolName: student.schoolName ?? '',
+    companyName: student.companyName ?? '',
     skills: student.skills.length ? student.skills : emptyStudent.skills,
     projects: student.projects.length
       ? student.projects.map((project) => ({
@@ -35,9 +42,17 @@ function FieldError({ message }) {
   return message ? <div className="form-text text-danger">{message}</div> : null
 }
 
-export default function StudentForm({ student, onCancel, onSubmit }) {
+export default function StudentForm({
+  student,
+  availableSchools = [],
+  availableCompanies = [],
+  onCancel,
+  onSubmit,
+}) {
   const [formData, setFormData] = useState(() => getInitialState(student))
   const [errors, setErrors] = useState({})
+  const [companyInput, setCompanyInput] = useState(() => student?.companyName ?? '')
+  const [customCompanyName, setCustomCompanyName] = useState('')
 
   const formTitle = useMemo(
     () => (student ? 'Modifier le profil' : 'Ajouter un profil'),
@@ -78,6 +93,24 @@ export default function StudentForm({ student, onCancel, onSubmit }) {
     if (!formData.lastName.trim()) nextErrors.lastName = 'Le nom est requis.'
     if (!formData.role.trim()) nextErrors.role = 'Le poste cible est requis.'
     if (!formData.location.trim()) nextErrors.location = 'La localisation est requise.'
+    if (!formData.schoolName.trim()) nextErrors.schoolName = 'L ecole est requise.'
+    if (availableSchools.length && !availableSchools.includes(formData.schoolName.trim())) {
+      nextErrors.schoolName = 'Selectionnez une ecole du catalogue.'
+    }
+
+    if (companyInput === COMPANY_NOT_AVAILABLE && !customCompanyName.trim()) {
+      nextErrors.companyName = 'Saisissez le nom de l entreprise.'
+    }
+
+    if (
+      companyInput &&
+      companyInput !== COMPANY_NOT_AVAILABLE &&
+      availableCompanies.length &&
+      !availableCompanies.includes(companyInput)
+    ) {
+      nextErrors.companyName = 'Selectionnez une entreprise du catalogue ou Entreprise non disponible.'
+    }
+
     if (!formData.bio.trim()) nextErrors.bio = 'La biographie est requise.'
     if (!formData.email.trim()) nextErrors.email = 'L email est requis.'
 
@@ -91,7 +124,13 @@ export default function StudentForm({ student, onCancel, onSubmit }) {
       return
     }
 
-    onSubmit(formData)
+    const resolvedCompany =
+      companyInput === COMPANY_NOT_AVAILABLE ? customCompanyName.trim() : companyInput.trim()
+
+    onSubmit({
+      ...formData,
+      companyName: resolvedCompany || '',
+    })
   }
 
   return (
@@ -162,6 +201,43 @@ export default function StudentForm({ student, onCancel, onSubmit }) {
               />
               <FieldError message={errors.location} />
             </div>
+
+            <div className="col-12 col-md-6">
+              <SearchSelect
+                label="Ecole"
+                placeholder="Rechercher une ecole"
+                value={formData.schoolName}
+                onChange={(nextValue) => updateField('schoolName', nextValue)}
+                options={availableSchools}
+                helpText="Choisissez une ecole du catalogue"
+                error={errors.schoolName}
+              />
+            </div>
+
+            <div className="col-12 col-md-6">
+              <SearchSelect
+                label="Entreprise (optionnel)"
+                placeholder="Rechercher une entreprise"
+                value={companyInput}
+                onChange={setCompanyInput}
+                options={availableCompanies}
+                helpText="Vous pouvez aussi basculer vers une saisie libre"
+                error={errors.companyName}
+                specialOption={{ label: COMPANY_NOT_AVAILABLE, value: COMPANY_NOT_AVAILABLE }}
+              />
+            </div>
+
+            {companyInput === COMPANY_NOT_AVAILABLE ? (
+              <div className="col-12">
+                <label className="form-label fw-semibold">Nom de l entreprise</label>
+                <input
+                  className="form-control"
+                  value={customCompanyName}
+                  onChange={(event) => setCustomCompanyName(event.target.value)}
+                  placeholder="Entrer le nom de l entreprise"
+                />
+              </div>
+            ) : null}
 
             <div className="col-12 col-md-6">
               <label className="form-label fw-semibold">Email</label>

@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+
 export default function StudentsToolbar({
   filters,
   availableSkills,
@@ -6,6 +9,8 @@ export default function StudentsToolbar({
   onReset,
   onCreate,
 }) {
+  const { isAuthenticated, user } = useAuth()
+
   return (
     <section className="card border-0 shadow-sm surface-card">
       <div className="card-body p-4">
@@ -14,13 +19,22 @@ export default function StudentsToolbar({
             <span className="text-uppercase small fw-semibold text-secondary brand-kicker">
               Recherche intelligente
             </span>
-            <h2 className="h3 mt-2 mb-2">Explorer les profils etudiants</h2>
+            <h2 className="h3 mt-2 mb-2">Explorer les profils disponibles</h2>
             <p className="text-secondary mb-0">
-              Filtrez par nom, niveau, competence ou stack projet pour trouver plus vite les
-              bons profils.
+              Filtrez par nom, niveau, compétence ou technologie.
             </p>
           </div>
           <div className="d-flex flex-column flex-sm-row gap-2">
+            {isAuthenticated ? (
+              <span className="btn btn-outline-dark rounded-pill px-4 disabled">
+                {user?.profileType === 'school' ? 'Profil ecole' : user?.profileType === 'company' ? 'Profil entreprise' : 'Profil student'}
+                {user?.isAdmin ? ' · admin' : ''}
+              </span>
+            ) : (
+              <Link to="/auth" className="btn btn-outline-dark rounded-pill px-4 text-decoration-none">
+                Connexion / Inscription
+              </Link>
+            )}
             <button type="button" className="btn btn-outline-secondary rounded-pill px-4" onClick={onReset}>
               Reinitialiser
             </button>
@@ -62,7 +76,7 @@ export default function StudentsToolbar({
               value={filters.skillName}
               onChange={(event) => onFilterChange('skillName', event.target.value)}
             >
-              <option value="all">Toutes les competences</option>
+              <option value="all">Toutes les compétences</option>
               {availableSkills.map((skill) => (
                 <option key={skill} value={skill}>
                   {skill}
@@ -72,7 +86,7 @@ export default function StudentsToolbar({
           </div>
 
           <div className="col-12 col-md-6 col-xl">
-            <label className="form-label fw-semibold">Technologie projet</label>
+            <label className="form-label fw-semibold">Technologie</label>
             <select
               className="form-select"
               value={filters.technology}
@@ -94,7 +108,7 @@ export default function StudentsToolbar({
               value={filters.sortBy}
               onChange={(event) => onFilterChange('sortBy', event.target.value)}
             >
-              <option value="featured">Mise en avant</option>
+              <option value="featured">Priorité éditoriale</option>
               <option value="name">Nom</option>
               <option value="location">Localisation</option>
             </select>

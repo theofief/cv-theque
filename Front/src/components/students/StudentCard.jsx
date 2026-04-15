@@ -9,6 +9,8 @@ export default function StudentCard({
   onEdit,
   onDelete,
   onSkillClick,
+  canEdit,
+  canDelete,
 }) {
   return (
     <article className="col-12 col-md-6">
@@ -33,6 +35,22 @@ export default function StudentCard({
                   <span className="badge rounded-pill text-bg-light text-primary-emphasis">
                     {student.location}
                   </span>
+                  <Link
+                    className="badge rounded-pill text-bg-light text-decoration-none"
+                    to={`/schools/${encodeURIComponent(student.schoolName)}`}
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    {student.schoolName}
+                  </Link>
+                  {student.companyName ? (
+                    <Link
+                      className="badge rounded-pill text-bg-light text-decoration-none"
+                      to={`/companies/${encodeURIComponent(student.companyName)}`}
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      {student.companyName}
+                    </Link>
+                  ) : null}
                   {student.featured ? (
                     <span className="badge rounded-pill text-bg-warning">En vue</span>
                   ) : null}
@@ -56,12 +74,16 @@ export default function StudentCard({
               Voir le profil complet
             </Link>
             <div className="d-flex flex-wrap gap-2">
-              <button type="button" className="btn btn-outline-secondary btn-sm rounded-pill" onClick={() => onEdit(student.id)}>
-                Modifier
-              </button>
-              <button type="button" className="btn btn-outline-danger btn-sm rounded-pill" onClick={() => onDelete(student.id)}>
-                Supprimer
-              </button>
+              {canEdit ? (
+                <button type="button" className="btn btn-outline-secondary btn-sm rounded-pill" onClick={() => onEdit(student.id)}>
+                  Modifier
+                </button>
+              ) : null}
+              {canDelete ? (
+                <button type="button" className="btn btn-outline-danger btn-sm rounded-pill" onClick={() => onDelete(student.id)}>
+                  Supprimer
+                </button>
+              ) : null}
             </div>
           </div>
         </div>

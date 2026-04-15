@@ -7,6 +7,8 @@ export default function StudentGrid({
   onEdit,
   onDelete,
   onSkillClick,
+  canEdit,
+  canDelete,
 }) {
   if (!students.length) {
     return (
@@ -35,6 +37,8 @@ export default function StudentGrid({
           onEdit={onEdit}
           onDelete={onDelete}
           onSkillClick={onSkillClick}
+          canEdit={canEdit}
+          canDelete={canDelete}
         />
       ))}
     </section>

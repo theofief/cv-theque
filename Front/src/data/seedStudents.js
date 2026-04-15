@@ -7,7 +7,7 @@ export const seedStudents = [
     role: 'Frontend Developer',
     location: 'Paris',
     bio: 'Etudiante en ingenierie web, passionnee par les interfaces produit, la qualite visuelle et les experiences fluides.',
-    email: 'lina.bousquet@cvtheque.dev',
+    email: 'lina.bousquet@gott.dev',
     availability: 'Disponible en septembre',
     featured: true,
     skills: [
@@ -37,7 +37,7 @@ export const seedStudents = [
     role: 'QA Automation Engineer',
     location: 'Lille',
     bio: 'Profil oriente qualite, test et fiabilite produit. J aime structurer les workflows et automatiser les controles.',
-    email: 'yanis.charrier@cvtheque.dev',
+    email: 'yanis.charrier@gott.dev',
     availability: 'Disponible immediatement',
     featured: false,
     skills: [
@@ -67,7 +67,7 @@ export const seedStudents = [
     role: 'Product Designer & Frontend',
     location: 'Lyon',
     bio: 'J aime relier UX, design et developpement front pour livrer des produits coherents, utiles et accessibles.',
-    email: 'maya.renaud@cvtheque.dev',
+    email: 'maya.renaud@gott.dev',
     availability: 'Sous 1 mois',
     featured: true,
     skills: [
@@ -97,7 +97,7 @@ export const seedStudents = [
     role: 'Full Stack JavaScript',
     location: 'Bordeaux',
     bio: 'Developpeur polyvalent attire par les architectures propres, les APIs robustes et les outils collaboratifs.',
-    email: 'noah.ferrand@cvtheque.dev',
+    email: 'noah.ferrand@gott.dev',
     availability: 'Alternance 4 jours entreprise',
     featured: false,
     skills: [

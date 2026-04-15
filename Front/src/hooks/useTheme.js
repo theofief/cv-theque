@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const STORAGE_KEY = 'cvtheque.theme'
+const STORAGE_KEY = 'gott.theme'
 
 export function useTheme() {
   const [theme, setTheme] = useState(() => {

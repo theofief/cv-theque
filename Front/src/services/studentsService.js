@@ -1,64 +1,57 @@
-import { seedStudents } from '../data/seedStudents'
+const API_URL = '/api/students'
 
-const STORAGE_KEY = 'cvtheque.students'
+async function request(path = '', options = {}) {
+  const token = window.localStorage.getItem('gott.jwt')
+  const method = options.method ?? 'GET'
+  const requiresAuth = method !== 'GET'
 
-function wait(ms = 180) {
-  return new Promise((resolve) => {
-    window.setTimeout(resolve, ms)
+  if (requiresAuth && !token) {
+    throw new Error('Connexion admin requise pour modifier les profils.')
+  }
+
+  const response = await fetch(`${API_URL}${path}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(options.headers ?? {}),
+    },
+    ...options,
   })
-}
 
-function readStorage() {
-  const rawValue = window.localStorage.getItem(STORAGE_KEY)
-  if (!rawValue) {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(seedStudents))
-    return seedStudents
+  const text = await response.text()
+  const data = text ? JSON.parse(text) : null
+
+  if (!response.ok) {
+    const message = data?.error ?? 'Erreur API'
+    throw new Error(message)
   }
 
-  try {
-    const parsedValue = JSON.parse(rawValue)
-    return Array.isArray(parsedValue) ? parsedValue : seedStudents
-  } catch {
-    return seedStudents
-  }
-}
-
-function writeStorage(students) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(students))
-  return students
-}
-
-function createId() {
-  return `stu-${crypto.randomUUID()}`
+  return data
 }
 
 export const studentsService = {
   async getAll() {
-    await wait()
-    return readStorage()
+    return request('')
   },
 
   async create(student) {
-    await wait()
-    const nextStudent = { ...student, id: createId() }
-    const currentStudents = readStorage()
-    writeStorage([nextStudent, ...currentStudents])
-    return nextStudent
+    return request('', {
+      method: 'POST',
+      body: JSON.stringify(student),
+    })
   },
 
   async update(studentId, studentData) {
-    await wait()
-    const updatedStudents = readStorage().map((student) =>
-      student.id === studentId ? { ...student, ...studentData, id: studentId } : student,
-    )
-    writeStorage(updatedStudents)
-    return updatedStudents.find((student) => student.id === studentId) ?? null
+    return request(`/${studentId}`, {
+      method: 'PUT',
+      body: JSON.stringify(studentData),
+    })
   },
 
   async remove(studentId) {
-    await wait()
-    const filteredStudents = readStorage().filter((student) => student.id !== studentId)
-    writeStorage(filteredStudents)
+    await request(`/${studentId}`, {
+      method: 'DELETE',
+    })
     return studentId
   },
 }

@@ -1,9 +1,12 @@
 import { startTransition, useDeferredValue, useEffect, useMemo, useState } from 'react'
+import { catalogService } from '../services/catalogService'
 import { studentsService } from '../services/studentsService'
 import {
   buildStudentStats,
+  getUniqueCompanies,
   getStudentFullName,
   getUniqueSkills,
+  getUniqueSchools,
   getUniqueTechnologies,
   normalizeStudentPayload,
 } from '../utils/studentHelpers'
@@ -24,6 +27,8 @@ export function useStudents() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [catalogSchools, setCatalogSchools] = useState([])
+  const [catalogCompanies, setCatalogCompanies] = useState([])
 
   const deferredQuery = useDeferredValue(filters.query)
 
@@ -34,13 +39,19 @@ export function useStudents() {
       try {
         setLoading(true)
         setError('')
-        const data = await studentsService.getAll()
+        const [data, schools, companies] = await Promise.all([
+          studentsService.getAll(),
+          catalogService.getSchools(),
+          catalogService.getCompanies(),
+        ])
 
         if (!active) {
           return
         }
 
         setStudents(data)
+        setCatalogSchools(schools)
+        setCatalogCompanies(companies)
         setSelectedStudentId((currentId) => currentId ?? data[0]?.id ?? null)
       } catch {
         if (active) {
@@ -74,6 +85,14 @@ export function useStudents() {
 
   const availableSkills = useMemo(() => getUniqueSkills(students), [students])
   const availableTechnologies = useMemo(() => getUniqueTechnologies(students), [students])
+  const availableSchools = useMemo(
+    () => [...new Set([...catalogSchools, ...getUniqueSchools(students)])].sort((a, b) => a.localeCompare(b, 'fr')),
+    [catalogSchools, students],
+  )
+  const availableCompanies = useMemo(
+    () => [...new Set([...catalogCompanies, ...getUniqueCompanies(students)])].sort((a, b) => a.localeCompare(b, 'fr')),
+    [catalogCompanies, students],
+  )
   const stats = useMemo(() => buildStudentStats(students), [students])
 
   const filteredStudents = useMemo(() => {
@@ -202,6 +221,8 @@ export function useStudents() {
     stats,
     availableSkills,
     availableTechnologies,
+    availableSchools,
+    availableCompanies,
     setSelectedStudentId,
     updateFilter,
     applySkillFilter,

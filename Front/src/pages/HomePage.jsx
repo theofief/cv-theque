@@ -3,9 +3,11 @@ import StudentGrid from '../components/students/StudentGrid'
 import StudentProfile from '../components/students/StudentProfile'
 import StudentsToolbar from '../components/students/StudentsToolbar'
 import StatsStrip from '../components/students/StatsStrip'
+import { useAuth } from '../context/AuthContext'
 import { useStudents } from '../hooks/useStudents'
 
 export default function HomePage() {
+  const { isAdmin } = useAuth()
   const {
     filteredStudents,
     selectedStudent,
@@ -18,6 +20,8 @@ export default function HomePage() {
     stats,
     availableSkills,
     availableTechnologies,
+    availableSchools,
+    availableCompanies,
     setSelectedStudentId,
     updateFilter,
     applySkillFilter,
@@ -46,13 +50,12 @@ export default function HomePage() {
             Mission produit
           </span>
           <h2 className="display-6 fw-bold mt-2 mb-2">
-            Identifier rapidement les bons profils etudiants.
+            Identifier rapidement les profils pertinents.
           </h2>
         </div>
         <div className="col-lg-5">
           <p className="text-secondary mb-0">
-            Cette vue regroupe les talents, les filtres utiles et un apercu detaille pour
-            faciliter la consultation cote entreprise comme cote ecole.
+            Vue de synthèse avec filtres, liste et détail sélectionné.
           </p>
         </div>
       </section>
@@ -80,10 +83,12 @@ export default function HomePage() {
         </div>
       ) : null}
 
-      {editingStudentId ? (
+      {editingStudentId && (editingStudentId === 'new' || isAdmin) ? (
         <div id="talent-form">
           <StudentForm
             student={editingStudent}
+            availableSchools={availableSchools}
+            availableCompanies={availableCompanies}
             onCancel={closeForm}
             onSubmit={(payload) =>
               editingStudent
@@ -104,7 +109,7 @@ export default function HomePage() {
               <h2 className="h2 mt-2 mb-0">{filteredStudents.length} profils visibles</h2>
             </div>
             <p className="text-secondary mb-0 col-lg-5">
-              Une grille plus sobre pour parcourir les talents sans surcharger la lecture.
+              Une grille lisible pour parcourir les profils.
             </p>
           </div>
 
@@ -122,6 +127,8 @@ export default function HomePage() {
               onEdit={openEditForm}
               onDelete={deleteStudent}
               onSkillClick={applySkillFilter}
+              canEdit={isAdmin}
+              canDelete={isAdmin}
             />
           )}
         </div>
@@ -133,8 +140,8 @@ export default function HomePage() {
             ) : (
               <section className="card border-0 shadow-sm surface-card">
                 <div className="card-body text-center py-5">
-                  <h3 className="h4">Selectionnez un profil</h3>
-                  <p className="text-secondary mb-0">Le detail d un etudiant apparaitra ici.</p>
+                  <h3 className="h4">Sélectionnez un profil</h3>
+                  <p className="text-secondary mb-0">Le détail s’affichera ici.</p>
                 </div>
               </section>
             )}

@@ -1,6 +1,7 @@
 import ProjectList from './ProjectList'
 import SkillList from './SkillList'
 import { getInitials, getStudentFullName } from '../../utils/studentHelpers'
+import { Link } from 'react-router-dom'
 
 export default function StudentProfile({ student, onSkillClick }) {
   return (
@@ -23,6 +24,20 @@ export default function StudentProfile({ student, onSkillClick }) {
                 <span className="badge rounded-pill text-bg-light text-primary-emphasis">
                   {student.location}
                 </span>
+                <Link
+                  className="badge rounded-pill text-bg-light text-decoration-none"
+                  to={`/schools/${encodeURIComponent(student.schoolName)}`}
+                >
+                  {student.schoolName}
+                </Link>
+                {student.companyName ? (
+                  <Link
+                    className="badge rounded-pill text-bg-light text-decoration-none"
+                    to={`/companies/${encodeURIComponent(student.companyName)}`}
+                  >
+                    {student.companyName}
+                  </Link>
+                ) : null}
                 <span className="badge rounded-pill text-bg-light text-primary-emphasis">
                   {student.age} ans
                 </span>

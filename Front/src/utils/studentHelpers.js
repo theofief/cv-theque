@@ -36,6 +36,8 @@ export function normalizeStudentPayload(student) {
     bio: student.bio.trim(),
     email: student.email.trim(),
     availability: student.availability.trim(),
+    schoolName: student.schoolName.trim(),
+    companyName: student.companyName?.trim() || null,
     skills: student.skills
       .map((skill) => ({
         name: skill.name.trim(),
@@ -68,6 +70,16 @@ export function getUniqueTechnologies(students) {
       ),
     ),
   ].sort((left, right) => left.localeCompare(right, 'fr'))
+}
+
+export function getUniqueSchools(students) {
+  return [...new Set(students.map((student) => student.schoolName).filter(Boolean))]
+    .sort((left, right) => left.localeCompare(right, 'fr'))
+}
+
+export function getUniqueCompanies(students) {
+  return [...new Set(students.map((student) => student.companyName).filter(Boolean))]
+    .sort((left, right) => left.localeCompare(right, 'fr'))
 }
 
 export function buildStudentStats(students) {

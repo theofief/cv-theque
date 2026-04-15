@@ -27,7 +27,7 @@ export default function StudentProfilePage() {
           </p>
           <div>
             <Link className="link-primary fw-semibold text-decoration-none" to="/">
-              Retour a la CVtheque
+              Retour à Gott
             </Link>
           </div>
         </div>
@@ -40,12 +40,12 @@ export default function StudentProfilePage() {
       <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3">
         <div>
           <span className="text-uppercase small fw-semibold text-secondary brand-kicker">
-            CV web
+            Profil
           </span>
-          <h2 className="display-6 fw-bold mt-2 mb-0">Consulter un profil en detail</h2>
+          <h2 className="display-6 fw-bold mt-2 mb-0">Vue détaillée du profil</h2>
         </div>
         <Link className="link-primary fw-semibold text-decoration-none" to="/">
-          Retour a la CVtheque
+          Retour à Gott
         </Link>
       </div>
       <StudentProfile student={student} onSkillClick={applySkillFilter} />
