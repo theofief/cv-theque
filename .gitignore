@@ -19,7 +19,7 @@ dist-ssr
 /Back/.env.*.local
 /Back/config/secrets/prod/prod.decrypt.private.php
 /Back/public/bundles/
-/Back/var/
+/Back/var/cache/
 /Back/vendor/
 
 # Editor directories and files
